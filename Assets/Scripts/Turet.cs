@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class Turet : MonoBehaviour
 {
-    public Transform target;
+    private Transform target;
+    [Header("Attributes")]
+
     [SerializeField]
     private float range;
     [SerializeField]
+    private float bulletRate = 1f;
+    private float bulletCountDown = 1f;
+    
+    [Header("Setup Fields")]
+
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    [SerializeField]
     private string enemyTag = "Enemy";
-
     public float rotationSpeed = 10f;
-
-
     public Transform partForRotation;
+
+    
+
     void Start()
     {
         InvokeRepeating("searchTarget", 0f, 0.5f);
@@ -21,11 +31,21 @@ public class Turet : MonoBehaviour
     
      void Update()
     {
-
         LookAt();
-       
-
-        //turetUp.transform.LookAt(target);
+        if (bulletCountDown <= 0f)
+        {
+            Shoot();
+            bulletCountDown = 1f / bulletRate;
+        }
+        bulletCountDown -= Time.deltaTime;
+    }
+   
+    void Shoot()
+    {
+        GameObject bulletGameObject = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bullet Bullet = bulletGameObject.GetComponent<bullet>();
+        if(Bullet != null)
+            Bullet.Seek(target);
     }
     void LookAt()
     {
@@ -36,6 +56,7 @@ public class Turet : MonoBehaviour
         Vector3 rotation = Quaternion.Lerp(partForRotation.rotation, lookRotation, Time.deltaTime * rotationSpeed).eulerAngles;
         partForRotation.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
+    
     void searchTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
