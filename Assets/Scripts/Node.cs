@@ -3,10 +3,11 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
-    public GameObject turet;
     private Color startColor;
     private Renderer rend;
     private bool placeable = true;
+
+    public Vector3 positionOffset;
     private void OnMouseEnter()
     {
         rend.material.color = hoverColor;
@@ -20,21 +21,20 @@ public class Node : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        building();
+        if (placeable)
+        {
+
+            GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
+            Instantiate(turretToBuild, gameObject.transform.position + positionOffset, gameObject.transform.rotation);
+            placeable = false;
+            hoverColor = Color.red;
+        }
     }
     private void OnMouseExit()
     {
         rend.material.color = startColor;
     }
-    void building()
-    {
-        if (placeable)
-        {
-            Instantiate(turet, gameObject.transform.position + new Vector3(0,0.5f,0), gameObject.transform.rotation);
-            placeable = false;
-            hoverColor = Color.red;
-        }
-    }
+    
     // Update is called once per frame
     void Update()
     {
