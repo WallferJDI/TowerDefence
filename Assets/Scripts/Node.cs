@@ -5,7 +5,7 @@ public class Node : MonoBehaviour
     public Color hoverColor;
     private Color startColor;
     private Renderer rend;
-    private bool placeable = true;
+    private GameObject turet;
 
     public Vector3 positionOffset;
     private void OnMouseEnter()
@@ -21,14 +21,15 @@ public class Node : MonoBehaviour
     }
     private void OnMouseDown()
     {
-        if (placeable)
+        if (turet != null)
         {
+            Debug.LogError("You CANT build here");
+        }
 
             GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
-            Instantiate(turretToBuild, gameObject.transform.position + positionOffset, gameObject.transform.rotation);
-            placeable = false;
+           turet = (GameObject) Instantiate(turretToBuild, gameObject.transform.position + positionOffset, gameObject.transform.rotation);
             hoverColor = Color.red;
-        }
+        
     }
     private void OnMouseExit()
     {
