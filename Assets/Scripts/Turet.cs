@@ -7,10 +7,10 @@ public class Turet : MonoBehaviour
     private Transform target;
     [Header("Attributes")]
 
-    [SerializeField]
-    private float range;
-    [SerializeField]
-    private float bulletRate = 1f;
+
+    [SerializeField] private float range;
+
+    [SerializeField] private float bulletRate = 1f;
     private float bulletCountDown = 1f;
     
     [Header("Setup Fields")]

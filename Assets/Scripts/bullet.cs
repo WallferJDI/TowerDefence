@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 70f;
+
+    [SerializeField] private float speed = 70f;
     private Transform target;
     public GameObject impactEffect;
 
