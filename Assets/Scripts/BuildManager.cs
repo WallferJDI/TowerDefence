@@ -6,7 +6,7 @@ public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
     
-    [SerializeField]
+  
     private GameObject turetPrefab;
     private void Awake()
     {
@@ -18,8 +18,8 @@ public class BuildManager : MonoBehaviour
 
     }
    
-    [SerializeField]
-    private GameObject standartTuret;
+    
+    public GameObject standartTuret;
     private void Start()
     {
         turetPrefab = standartTuret;
